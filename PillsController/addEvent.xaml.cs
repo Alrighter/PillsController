@@ -23,23 +23,26 @@ namespace PillsController
     /// </summary>
     public partial class addEvent : Window
     {
-        public addEvent()
-        {
-            InitializeComponent();
-        }
-
         private Window mainWindow;
         private string _pillName;
         private byte _quontityPerDay;
         private byte _duration;
-        private int _pillNum = 0;
+        private int _pillNum;
 
-        protected SQLiteConnection sqlite_conn;
+        protected SQLiteConnection sqlite_conn = db.CreateConnection();
 
-        public string PillName {get{return _pillName;}set{_pillName = PillName; }}
-        public byte QuontityPerDay{get{ return _quontityPerDay; }set{ _quontityPerDay = QuontityPerDay; }}
-        public byte Duration { get {return _duration;} set { _duration = Duration;} }
+        public string PillName { get { return _pillName; } set { _pillName = PillName; } }
+        public byte QuontityPerDay { get { return _quontityPerDay; } set { _quontityPerDay = QuontityPerDay; } }
+        public byte Duration { get { return _duration; } set { _duration = Duration; } }
         public int PillNum { get { return _pillNum; } set { _pillNum = PillNum; } }
+
+        public addEvent()
+        {
+            InitializeComponent();
+            db.CreateTable(sqlite_conn);
+        }
+
+        
 
         private void TypeName_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -67,21 +70,12 @@ namespace PillsController
         private void Confirm(object sender, MouseButtonEventArgs e)
         {
             PillName = Convert.ToString(typeNameBox.Text);
-            sqlite_conn = db.CreateConnection();
+            
             try
             {
                 QuontityPerDay = Convert.ToByte(quontityPerDayCB.Text);
                 Duration = Convert.ToByte(DurationBox.Text);
-                db.CreateTable(sqlite_conn);
-
-                if (File.Exists("database.db"))
-                {
-                    MessageBox.Show("Done! exists");
-                }
-                else
-                {
-                    MessageBox.Show("Done! ");
-                }
+                
                 db.InsertData(sqlite_conn, Convert.ToString(PillName), Convert.ToString(DateTime.UtcNow), Convert.ToString(DateTime.UtcNow.AddDays(Duration)));
                 Console.WriteLine(Convert.ToString(DateTime.UtcNow));
 

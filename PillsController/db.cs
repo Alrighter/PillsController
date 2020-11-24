@@ -32,15 +32,13 @@ namespace PillsController
 
         public static void CreateTable(SQLiteConnection conn)
         {
-
             SQLiteCommand sqlite_cmd;
-            string Createsql = "CREATE TABLE DATA(ID INT PRIMARY KEY NOT NULL," +
+            string Createsql = "CREATE IF NOT EXISTS TABLE DATA(ID INT PRIMARY KEY NOT NULL," +
                                "NAME TEXT NOT NULL, " +
-                               "STARTDATE DATETIME NOT NULL, " +
-                               "ENDDATE DATETIME NOT NULL)";
+                               "START_DATE DATETIME NOT NULL, " +
+                               "END_DATE DATETIME NOT NULL)";
             sqlite_cmd = conn.CreateCommand();
             sqlite_cmd.CommandText = Createsql;
-
         }
 
         public static void InsertData(SQLiteConnection conn, string name, string startDateTime, string endDateTime)

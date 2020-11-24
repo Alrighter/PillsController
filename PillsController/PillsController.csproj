@@ -115,6 +115,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pill.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -155,6 +156,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="arrow-left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="pcdb.db" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
