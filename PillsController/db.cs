@@ -34,7 +34,10 @@ namespace PillsController
         {
 
             SQLiteCommand sqlite_cmd;
-            string Createsql = "CREATE TABLE DATA(NAME TEXT PRIMARY KEY NOT NULL, STARTDATE DATETIME, ENDDATE DATETIME)";
+            string Createsql = "CREATE TABLE DATA(ID INT PRIMARY KEY NOT NULL," +
+                               "NAME TEXT NOT NULL, " +
+                               "STARTDATE DATETIME NOT NULL, " +
+                               "ENDDATE DATETIME NOT NULL)";
             sqlite_cmd = conn.CreateCommand();
             sqlite_cmd.CommandText = Createsql;
 
@@ -44,7 +47,7 @@ namespace PillsController
         {
             SQLiteCommand sqlite_cmd;
             sqlite_cmd = conn.CreateCommand();
-            sqlite_cmd.CommandText = $"INSERT INTO DATA(NAME, STARTDATE, ENDDATE) VALUES({name}, {startDateTime}, {endDateTime})";
+            sqlite_cmd.CommandText = $"INSERT INTO DATA(NAME, STARTDATE, ENDDATE) VALUES({name},{startDateTime},{endDateTime})";
 
             sqlite_cmd.ExecuteNonQuery();
 

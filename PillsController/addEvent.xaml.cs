@@ -34,7 +34,7 @@ namespace PillsController
         private byte _duration;
         private int _pillNum = 0;
 
-        SQLiteConnection sqlite_conn;
+        protected SQLiteConnection sqlite_conn;
 
         public string PillName {get{return _pillName;}set{_pillName = PillName; }}
         public byte QuontityPerDay{get{ return _quontityPerDay; }set{ _quontityPerDay = QuontityPerDay; }}
@@ -67,39 +67,30 @@ namespace PillsController
         private void Confirm(object sender, MouseButtonEventArgs e)
         {
             PillName = Convert.ToString(typeNameBox.Text);
-            SQLiteConnection sqlite_conn;
             sqlite_conn = db.CreateConnection();
             try
             {
                 QuontityPerDay = Convert.ToByte(quontityPerDayCB.Text);
                 Duration = Convert.ToByte(DurationBox.Text);
+                db.CreateTable(sqlite_conn);
 
                 if (File.Exists("database.db"))
                 {
                     MessageBox.Show("Done! exists");
-                    db.InsertData(sqlite_conn, Convert.ToString(PillName), Convert.ToString(DateTime.UtcNow), Convert.ToString(DateTime.UtcNow.AddDays(Duration)));
                 }
                 else
                 {
-                    
-                    db.CreateTable(sqlite_conn);
                     MessageBox.Show("Done! ");
                 }
+                db.InsertData(sqlite_conn, Convert.ToString(PillName), Convert.ToString(DateTime.UtcNow), Convert.ToString(DateTime.UtcNow.AddDays(Duration)));
                 Console.WriteLine(Convert.ToString(DateTime.UtcNow));
 
             }
-
 
             catch (Exception exception)
             {
                 MessageBox.Show("Введите корректные данные. " + exception);
             }
-
-            
-
-
-
-
 
         }
     }
