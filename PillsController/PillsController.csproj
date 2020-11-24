@@ -104,6 +104,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ApplicationContext.cs" />
     <Compile Include="calendar.xaml.cs">
       <DependentUpon>calendar.xaml</DependentUpon>
     </Compile>

@@ -23,13 +23,13 @@ namespace PillsController
     /// </summary>
     public partial class addEvent : Window
     {
+        private ApplicationContext db;
+
         private Window mainWindow;
         private string _pillName;
         private byte _quontityPerDay;
         private byte _duration;
         private int _pillNum;
-
-        protected SQLiteConnection sqlite_conn = db.CreateConnection();
 
         public string PillName { get { return _pillName; } set { _pillName = PillName; } }
         public byte QuontityPerDay { get { return _quontityPerDay; } set { _quontityPerDay = QuontityPerDay; } }
@@ -39,7 +39,7 @@ namespace PillsController
         public addEvent()
         {
             InitializeComponent();
-            db.CreateTable(sqlite_conn);
+            db = new ApplicationContext();
         }
 
         
@@ -75,10 +75,8 @@ namespace PillsController
             {
                 QuontityPerDay = Convert.ToByte(quontityPerDayCB.Text);
                 Duration = Convert.ToByte(DurationBox.Text);
-                
-                db.InsertData(sqlite_conn, Convert.ToString(PillName), Convert.ToString(DateTime.UtcNow), Convert.ToString(DateTime.UtcNow.AddDays(Duration)));
+                Console.WriteLine(Convert.ToString(PillName), Convert.ToString(DateTime.UtcNow), Convert.ToString(DateTime.UtcNow.AddDays(Duration)));
                 Console.WriteLine(Convert.ToString(DateTime.UtcNow));
-
             }
 
             catch (Exception exception)
@@ -86,6 +84,10 @@ namespace PillsController
                 MessageBox.Show("Введите корректные данные. " + exception);
             }
 
+            Pill pill = new Pill(PillName, DateTime.UtcNow, DateTime.UtcNow.AddDays(Duration), QuontityPerDay);
+
+            db.Pills.Add(pill);
+            db.SaveChanges();
         }
     }
 }

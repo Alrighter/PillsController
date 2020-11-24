@@ -8,10 +8,12 @@ namespace PillsController
 {
     class Pill
     {
-        private int id { get; set; }
+        public int id { get; set; }
 
-        private string name;
-        private DateTime startDate, endDate;
+        public string name { get; set; }
+        public DateTime startDate { get; set; }
+        public DateTime endDate { get; set; }
+        public int timesPerDay { get; set; }
 
 
         public Pill()
@@ -19,11 +21,12 @@ namespace PillsController
 
         }
 
-        public Pill(string name, DateTime startDate, DateTime endDate)
+        public Pill(string name, DateTime startDate, DateTime endDate, int timesPerDay)
         {
             this.name = name;
             this.startDate = startDate;
             this.endDate = endDate;
+            this.timesPerDay = timesPerDay;
         }
     }
 }
