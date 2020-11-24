@@ -1,0 +1,19 @@
+﻿<Window x:Class="PillsController.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PillsController"
+        mc:Ignorable="d"
+        Title="Pills Controller" Height="450" Width="800" ResizeMode="NoResize" Cursor="Arrow" WindowStartupLocation="CenterScreen" Icon="pills.png">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width = "*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Image x:Name="image" Height="186" Width="188" Source="pills.png" MouseDown="SetNewEventMainButton_OnClick" Cursor="Hand" />
+        <Image x:Name="image1" Height="186" Width="186" Source="calendar-thirty.png" MouseDown="ShowEventsMainButton_OnClick" Cursor="Hand" Grid.Column="1"/>
+    </Grid>
+
+
+</Window>
