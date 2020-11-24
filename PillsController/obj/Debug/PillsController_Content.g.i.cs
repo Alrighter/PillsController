@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("pcdb.db")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("pills.db")]
 
 
