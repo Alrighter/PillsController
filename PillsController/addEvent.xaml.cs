@@ -76,18 +76,19 @@ namespace PillsController
             {
                 QuontityPerDay = Convert.ToByte(quontityPerDayCB.Text);
                 Duration = Convert.ToByte(DurationBox.Text);
-
-                Database.SetInitializer<ApplicationContext>(null);
-                Pill pill = new Pill(PillName, DateTime.UtcNow, DateTime.UtcNow.AddDays(Duration), QuontityPerDay);
-
-                db.Pills.Add(pill);
-                db.SaveChanges();
             }
 
             catch (Exception exception)
             {
                 MessageBox.Show("Введите корректные данные. " + exception);
             }
+
+            DateTime dateTimeNow = DateTime.Now;
+
+            Database.SetInitializer<ApplicationContext>(null);
+            Pill pill = new Pill(PillName, DateTime.UtcNow, DateTime.UtcNow.AddDays(Duration), QuontityPerDay);
+            db.Pills.Add(pill);
+            db.SaveChanges();
 
         }
     }
