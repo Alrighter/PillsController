@@ -29,12 +29,10 @@ namespace PillsController
         private string _pillName;
         private int _quontityPerDay;
         private int _duration;
-        private int _pillNum;
 
         public string PillName { get { return _pillName; } set { _pillName = PillName; } }
         public int QuontityPerDay { get { return _quontityPerDay; } set { _quontityPerDay = QuontityPerDay; } }
         public int Duration { get { return _duration; } set { _duration = Duration; } }
-        public int PillNum { get { return _pillNum; } set { _pillNum = PillNum; } }
 
         public addEvent()
         {
