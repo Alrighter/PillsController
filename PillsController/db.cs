@@ -7,47 +7,47 @@ using System.Threading.Tasks;
 
 namespace PillsController
 {
-    public class db
+    class db
     {
-
-
 
         public static SQLiteConnection CreateConnection()
         {
-
-            SQLiteConnection sqlite_conn;
-            // Create a new database connection:
-            sqlite_conn = new SQLiteConnection("Data Source= database.db; Version = 3; New = True; Compress = True; ");
-            // Open the connection:
+            SQLiteConnection sqlconn = new SQLiteConnection("Data Source=database.db; Version = 3; New = True; Compress = True; ");
             try
             {
-                sqlite_conn.Open();
+                sqlconn.Open();
             }
-            catch (Exception ex)
+            catch (Exception Ex)
             {
 
             }
-            return sqlite_conn;
+            return sqlconn;
         }
 
         public static void CreateTable(SQLiteConnection conn)
         {
-            SQLiteCommand sqlite_cmd;
-            string Createsql = "CREATE IF NOT EXISTS TABLE DATA(ID INT PRIMARY KEY NOT NULL," +
-                               "NAME TEXT NOT NULL, " +
-                               "START_DATE DATETIME NOT NULL, " +
-                               "END_DATE DATETIME NOT NULL)";
-            sqlite_cmd = conn.CreateCommand();
-            sqlite_cmd.CommandText = Createsql;
+
+            SQLiteCommand sqlcmd;
+            string createTableCmd = "CREATE TABLE IF NOT EXISTS Information(ID INTEGER NOT NULL UNIQUE, NAME TEXT NOT NULL,START_DATE TEXT NOT NULL, END_DATE TEXT NOT NULL,FREQUENCY INTEGER NOT NULL, PRIMARY KEY(ID AUTOINCREMENT)); ";
+            sqlcmd = conn.CreateCommand();
+
+            sqlcmd.CommandText = createTableCmd;
+            sqlcmd.ExecuteNonQuery();
+
         }
 
-        public static void InsertData(SQLiteConnection conn, string name, string startDateTime, string endDateTime)
+        public static void InsertData(SQLiteConnection conn, string name, string startDate, string endDate, int frequency, int quantityOfDays)
         {
-            SQLiteCommand sqlite_cmd;
-            sqlite_cmd = conn.CreateCommand();
-            sqlite_cmd.CommandText = $"INSERT INTO DATA(NAME, STARTDATE, ENDDATE) VALUES({name},{startDateTime},{endDateTime})";
 
-            sqlite_cmd.ExecuteNonQuery();
+            for (int i = 0; i < quantityOfDays; i++)
+            {
+                for (int a = 0; a < frequency; a++)
+                {
+                    SQLiteCommand sqlcmd = new SQLiteCommand($"INSERT INTO Information (NAME, START_DATE, END_DATE, FREQUENCY) VALUES({name}, '{startDate}', '{endDate}', {frequency});", conn);
+
+                    sqlcmd.ExecuteNonQuery();
+                }
+            }
 
         }
 

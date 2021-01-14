@@ -104,7 +104,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ApplicationContext.cs" />
     <Compile Include="calendar.xaml.cs">
       <DependentUpon>calendar.xaml</DependentUpon>
     </Compile>
@@ -116,7 +115,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Pill.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -157,9 +155,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="arrow-left.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Pills.db" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

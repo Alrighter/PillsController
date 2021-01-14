@@ -86,4 +86,3 @@ D:\PillsController\PillsController\obj\Debug\PillsController.csproj.CoreCompileI
 D:\PillsController\PillsController\obj\Debug\PillsController.csproj.CopyComplete
 D:\PillsController\PillsController\obj\Debug\PillsController.exe
 D:\PillsController\PillsController\obj\Debug\PillsController.pdb
-D:\PillsController\PillsController\obj\Debug\PillsController_Content.g.cs

@@ -24,23 +24,21 @@ namespace PillsController
     /// </summary>
     public partial class addEvent : Window
     {
-        private ApplicationContext db;
 
         private Window mainWindow;
         private string _pillName;
-        private byte _quontityPerDay;
-        private byte _duration;
+        private int _quontityPerDay;
+        private int _duration;
         private int _pillNum;
 
         public string PillName { get { return _pillName; } set { _pillName = PillName; } }
-        public byte QuontityPerDay { get { return _quontityPerDay; } set { _quontityPerDay = QuontityPerDay; } }
-        public byte Duration { get { return _duration; } set { _duration = Duration; } }
+        public int QuontityPerDay { get { return _quontityPerDay; } set { _quontityPerDay = QuontityPerDay; } }
+        public int Duration { get { return _duration; } set { _duration = Duration; } }
         public int PillNum { get { return _pillNum; } set { _pillNum = PillNum; } }
 
         public addEvent()
         {
             InitializeComponent();
-            db = new ApplicationContext();
         }
 
         
@@ -74,22 +72,29 @@ namespace PillsController
             
             try
             {
-                QuontityPerDay = Convert.ToByte(quontityPerDayCB.Text);
-                Duration = Convert.ToByte(DurationBox.Text);
+                QuontityPerDay = Convert.ToInt32(quontityPerDayCB.Text);
+                Duration = Convert.ToInt32(DurationBox.Text);
             }
-
+            
             catch (Exception exception)
             {
                 MessageBox.Show("Введите корректные данные. " + exception);
             }
 
-            DateTime dateTimeNow = DateTime.Now;
+            int quantityOfDays = 0;
+            string name = "smth";
+            int frequency = 1;
 
-            Database.SetInitializer<ApplicationContext>(null);
-            Pill pill = new Pill(PillName, DateTime.UtcNow, DateTime.UtcNow.AddDays(Duration), QuontityPerDay);
-            db.Pills.Add(pill);
-            db.SaveChanges();
+            SQLiteConnection sqlite_conn;
+            sqlite_conn = db.CreateConnection();
+            db.CreateTable(sqlite_conn);
+            DateTime myDateTime = DateTime.Now;
+            DateTime endDateTime = myDateTime.AddDays(quantityOfDays);
+            string startSqlFormattedDate = myDateTime.Date.ToString("yyyy-MM-dd HH:mm:ss");
+            string endSqlFormattedDate = endDateTime.Date.ToString("yyyy-MM-dd HH:mm:ss");
+
+            db.InsertData(sqlite_conn, name, startSqlFormattedDate, endSqlFormattedDate, QuontityPerDay, Duration);
 
         }
-    }
+    } 
 }
