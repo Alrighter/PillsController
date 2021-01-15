@@ -34,6 +34,8 @@ namespace PillsController
         public int QuontityPerDay { get { return _quontityPerDay; } set { _quontityPerDay = QuontityPerDay; } }
         public int Duration { get { return _duration; } set { _duration = Duration; } }
 
+
+
         public addEvent()
         {
             InitializeComponent();
@@ -79,20 +81,18 @@ namespace PillsController
                 MessageBox.Show("Введите корректные данные. " + exception);
             }
 
-            int quantityOfDays = 0;
-            string name = "smth";
-            int frequency = 1;
-
             SQLiteConnection sqlite_conn;
             sqlite_conn = db.CreateConnection();
             db.CreateTable(sqlite_conn);
+
             DateTime myDateTime = DateTime.Now;
-            DateTime endDateTime = myDateTime.AddDays(quantityOfDays);
-            string startSqlFormattedDate = myDateTime.Date.ToString("yyyy-MM-dd HH:mm:ss");
-            string endSqlFormattedDate = endDateTime.Date.ToString("yyyy-MM-dd HH:mm:ss");
+            DateTime endDateTime = myDateTime.AddDays(Duration);
+            string startSqlFormattedDate = Convert.ToString(myDateTime);
+            string endSqlFormattedDate = Convert.ToString(endDateTime);
 
-            db.InsertData(sqlite_conn, name, startSqlFormattedDate, endSqlFormattedDate, QuontityPerDay, Duration);
+            db.InsertData(sqlite_conn, PillName, startSqlFormattedDate, endSqlFormattedDate, QuontityPerDay, Duration);
 
+            MessageBox.Show("Done!");
         }
     } 
 }
