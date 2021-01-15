@@ -34,14 +34,10 @@ namespace PillsController
         public int QuontityPerDay { get { return _quontityPerDay; } set { _quontityPerDay = QuontityPerDay; } }
         public int Duration { get { return _duration; } set { _duration = Duration; } }
 
-
-
         public addEvent()
         {
             InitializeComponent();
         }
-
-        
 
         private void TypeName_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -83,9 +79,15 @@ namespace PillsController
 
             SQLiteConnection sqlite_conn;
             sqlite_conn = db.CreateConnection();
-            db.CreateTable(sqlite_conn);
+            string path = "./database.db";
+            if (File.Exists(path) != true)
+            {
+                db.CreateTable(sqlite_conn);
+            }
 
             DateTime myDateTime = DateTime.Now;
+            MessageBox.Show(Convert.ToString(Duration));
+
             DateTime endDateTime = myDateTime.AddDays(Duration);
             string startSqlFormattedDate = Convert.ToString(myDateTime);
             string endSqlFormattedDate = Convert.ToString(endDateTime);
