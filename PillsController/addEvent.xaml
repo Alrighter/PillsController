@@ -5,21 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PillsController"
         mc:Ignorable="d"
-        Title="Pills controller: add event" Height="450" Width="648.853" WindowStartupLocation="CenterScreen" Cursor="Arrow" Icon="pills.png" ResizeMode="NoResize">
-    <Grid Margin="0,0,3.4,0">
-        <Label x:Name="typeName" Content="Введите название препарата: " HorizontalAlignment="Center" Margin="180,104,179,0" VerticalAlignment="Top" Width="280" Cursor="Arrow" FontSize="20" MouseDown="TypeName_OnMouseDown"/>
-        <TextBox x:Name="typeNameBox" HorizontalAlignment="Center" Height="33" Margin="159,143,157,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="323" FontSize="20"/>
-        <Label x:Name="chooseQuantity" Content="Выберите количество приёмов за день: " HorizontalAlignment="Center" Margin="127,186,126,0" VerticalAlignment="Top" Width="386" Cursor="Arrow" FontSize="20" MouseDown="ChooseQuantity_OnMouseDown"/>
-        <ComboBox x:Name="quontityPerDayCB" HorizontalAlignment="Center" Margin="260,232,259,0" VerticalAlignment="Top" Width="120">
+        Title="Pills controller: add event" Height="464.4" Width="648.853" WindowStartupLocation="CenterScreen" Cursor="Arrow" Icon="pills.png" ResizeMode="NoResize">
+    <Grid Margin="0,0,3.4,9.2">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="356*"/>
+            <ColumnDefinition Width="283*"/>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="NameTBox" Content="Введите название препарата: " HorizontalAlignment="Center" Margin="180,104,179,0" VerticalAlignment="Top" Width="280" Cursor="Arrow" FontSize="20" MouseDown="NameTBox_OnMouseDown" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="NameBox" HorizontalAlignment="Center" Height="33" Margin="159,143,157,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="323" FontSize="20" Grid.ColumnSpan="2"/>
+        <Label x:Name="FrequencyTBox" Content="Выберите количество приёмов за день: " HorizontalAlignment="Center" Margin="127,186,126,0" VerticalAlignment="Top" Width="386" Cursor="Arrow" FontSize="20" MouseDown="FrequencyTBox_OnMouseDown" Grid.ColumnSpan="2"/>
+        <ComboBox x:Name="FrequencyBox" HorizontalAlignment="Center" Margin="260,232,259,0" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2">
             <TextBlock>1</TextBlock>
             <TextBlock>2</TextBlock>
             <TextBlock>3</TextBlock>
         </ComboBox>
-        <Label x:Name="choosePeriodTXT" Content="Введите период в днях: " HorizontalAlignment="Center" Margin="204,257,211,0" VerticalAlignment="Top" Width="224" Cursor="Arrow" FontSize="20" MouseDown="ChoosePeriodTXT_OnMouseDown"/>
-        <TextBox x:Name="DurationBox" HorizontalAlignment="Center" Height="33" Margin="199,298,200,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="240" FontSize="20"/>
-        <Image x:Name="image" HorizontalAlignment="Left" Height="100" Margin="272,8,0,0" VerticalAlignment="Top" Width="100" Source="pills.png"/>
-        <Image x:Name="image1" HorizontalAlignment="Left" Height="54" Margin="294,345,0,0" VerticalAlignment="Top" Width="54" Source="check-one.png" Cursor="Hand" MouseDown="Confirm"/>
-        <Image x:Name="image2" HorizontalAlignment="Left" Height="41" Margin="10,10,0,0" VerticalAlignment="Top" Width="41" Source="arrow-left.png" Cursor="Hand" MouseDown="Image2_OnMouseDown"/>
-
+        <Image x:Name="PillImage" HorizontalAlignment="Left" Height="100" Margin="272,8,0,0" VerticalAlignment="Top" Width="100" Source="pills.png" Grid.ColumnSpan="2"/>
+        <Image x:Name="ConfirmationImage" HorizontalAlignment="Left" Height="54" Margin="292,368,0,0" VerticalAlignment="Top" Width="54" Source="check-one.png" Cursor="Hand" MouseDown="Confirmation_Button" RenderTransformOrigin="0.422,3.059"/>
+        <Image x:Name="LeftArrowImage" HorizontalAlignment="Left" Height="41" Margin="10,10,0,0" VerticalAlignment="Top" Width="41" Source="arrow-left.png" Cursor="Hand" MouseDown="LeftArrowImage_OnMouseDown"/>
+        <DatePicker x:Name="StartDatePicker" HorizontalAlignment="Left" Margin="101,277,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Label x:Name="StartDatePickerTBox" Content="Выберите дату начала приёма лекарств:" HorizontalAlignment="Center" Margin="66,268,187.2,0" VerticalAlignment="Top" Width="386" Cursor="Arrow" FontSize="20" Grid.ColumnSpan="2" RenderTransformOrigin="0.707,0.554"/>
+        <DatePicker x:Name="EndDatePicker" HorizontalAlignment="Left" Margin="101,325,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Label x:Name="EndDatePickerTBox" Content="Выберите дату конца приёма лекарств:" HorizontalAlignment="Center" Margin="66,316,187.2,0" VerticalAlignment="Top" Width="386" Cursor="Arrow" FontSize="20" Grid.ColumnSpan="2" RenderTransformOrigin="0.707,0.554"/>
+        
     </Grid>
 </Window>

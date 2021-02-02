@@ -1,21 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Data.SQLite;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PillsController
 {
@@ -25,76 +12,80 @@ namespace PillsController
     public partial class addEvent : Window
     {
 
-        private Window mainWindow;
-        private string _pillName;
-        private int _quontityPerDay;
-        private int _duration;
+        Window MainWindow;
+        string PillName; 
+        int Frequency;
+        DateTime StartDateTime;
+        DateTime EndDateTime;
 
-        public string PillName { get { return _pillName; } set { _pillName = PillName; } }
-        public int QuontityPerDay { get { return _quontityPerDay; } set { _quontityPerDay = QuontityPerDay; } }
-        public int Duration { get { return _duration; } set { _duration = Duration; } }
 
         public addEvent()
         {
             InitializeComponent();
         }
 
-        private void TypeName_OnMouseDown(object sender, MouseButtonEventArgs e)
+        
+        private void Confirmation_Button(object sender, MouseButtonEventArgs e)
+        {
+            PillName = NameBox.Text;
+            Frequency = Int32.Parse(FrequencyBox.Text);
+            StartDateTime = Convert.ToDateTime(StartDatePicker.Text);
+            EndDateTime = Convert.ToDateTime(EndDatePicker.Text);
+
+            SQLiteConnection sqLite_connection = CreateConnection();
+            CreateTable(sqLite_connection);
+            InsertData(sqLite_connection, PillName, Convert.ToString(StartDateTime), Convert.ToString(EndDateTime), Frequency);
+        }
+
+        public SQLiteConnection CreateConnection()
+        {
+            SQLiteConnection sqlconn = new SQLiteConnection("Data Source=database.db; Version = 3; New = True; Compress = True; ");
+            try
+            {
+                sqlconn.Open();
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show("Error: " + Convert.ToString(Ex));
+            }
+            return sqlconn;
+        }
+
+        public void CreateTable(SQLiteConnection conn)
+        {
+
+            SQLiteCommand sqlcmd;
+            string createTableCmd = "CREATE TABLE IF NOT EXISTS Information(ID INTEGER NOT NULL UNIQUE, NAME TEXT NOT NULL,START_DATE TEXT NOT NULL, END_DATE TEXT NOT NULL,FREQUENCY INTEGER NOT NULL, PRIMARY KEY(ID AUTOINCREMENT)); ";
+            sqlcmd = conn.CreateCommand();
+
+            sqlcmd.CommandText = createTableCmd;
+            sqlcmd.ExecuteNonQuery();
+
+        }
+
+        public void InsertData(SQLiteConnection conn, string name, string startDate, string endDate, int frequency)
+        {
+            SQLiteCommand sqlcmd = new SQLiteCommand($"INSERT INTO Information (NAME, START_DATE, END_DATE, FREQUENCY) VALUES({name}, '{startDate}', '{endDate}', {frequency});", conn);
+            sqlcmd.ExecuteNonQuery();
+        }
+
+        private void NameTBox_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
             MessageBox.Show("Введите название, которое будет отображаться в напоминании.");
         }
 
-        private void ChooseQuantity_OnMouseDown(object sender, MouseButtonEventArgs e)
+        private void FrequencyTBox_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
             MessageBox.Show("Выберите как часто вы будете принимать таблетки за сутки.");
-            
+
         }
 
-        private void ChoosePeriodTXT_OnMouseDown(object sender, MouseButtonEventArgs e)
+        private void LeftArrowImage_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("Введите количество дней, сколько вам нужно принимать таблетки.");
-        }
-
-        private void Image2_OnMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            mainWindow = new MainWindow();
-            mainWindow.Show();
+            MainWindow = new MainWindow();
+            MainWindow.Show();
             this.Close();
         }
 
-        private void Confirm(object sender, MouseButtonEventArgs e)
-        {
-            PillName = Convert.ToString(typeNameBox.Text);
-            
-            try
-            {
-                QuontityPerDay = Convert.ToInt32(quontityPerDayCB.Text);
-                Duration = Convert.ToInt32(DurationBox.Text);
-            }
-            
-            catch (Exception exception)
-            {
-                MessageBox.Show("Введите корректные данные. " + exception);
-            }
-
-            SQLiteConnection sqlite_conn;
-            sqlite_conn = db.CreateConnection();
-            string path = "./database.db";
-            if (File.Exists(path) != true)
-            {
-                db.CreateTable(sqlite_conn);
-            }
-
-            DateTime myDateTime = DateTime.Now;
-            MessageBox.Show(Convert.ToString(Duration));
-
-            DateTime endDateTime = myDateTime.AddDays(Duration);
-            string startSqlFormattedDate = Convert.ToString(myDateTime);
-            string endSqlFormattedDate = Convert.ToString(endDateTime);
-
-            db.InsertData(sqlite_conn, PillName, startSqlFormattedDate, endSqlFormattedDate, QuontityPerDay, Duration);
-
-            MessageBox.Show("Done!");
-        }
-    } 
+    }
 }
