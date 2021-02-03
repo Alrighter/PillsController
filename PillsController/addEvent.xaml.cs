@@ -65,7 +65,7 @@ namespace PillsController
 
         public void InsertData(SQLiteConnection conn, string name, string startDate, string endDate, int frequency)
         {
-            SQLiteCommand sqlcmd = new SQLiteCommand($"INSERT INTO Information (NAME, START_DATE, END_DATE, FREQUENCY) VALUES({name}, '{startDate}', '{endDate}', {frequency});", conn);
+            SQLiteCommand sqlcmd = new SQLiteCommand($"INSERT INTO Information (NAME, START_DATE, END_DATE, FREQUENCY) VALUES('{name}', '{startDate}', '{endDate}', {frequency});", conn);
             sqlcmd.ExecuteNonQuery();
         }
 
