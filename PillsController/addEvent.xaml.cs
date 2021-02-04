@@ -27,10 +27,18 @@ namespace PillsController
         
         private void Confirmation_Button(object sender, MouseButtonEventArgs e)
         {
-            PillName = NameBox.Text;
-            Frequency = Int32.Parse(FrequencyBox.Text);
-            StartDateTime = Convert.ToDateTime(StartDatePicker.Text);
-            EndDateTime = Convert.ToDateTime(EndDatePicker.Text);
+            try
+            {
+                PillName = NameBox.Text;
+                Frequency = Int32.Parse(FrequencyBox.Text);
+                StartDateTime = Convert.ToDateTime(StartDatePicker.Text);
+                EndDateTime = Convert.ToDateTime(EndDatePicker.Text);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Введите корректные данные.");
+            }
+            
 
             SQLiteConnection sqLite_connection = CreateConnection();
             CreateTable(sqLite_connection);

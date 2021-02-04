@@ -143,16 +143,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="pills.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="calendar-thirty.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="check-one.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="arrow-left.png" />
+    <Resource Include="calendar-thirty.png" />
+    <Resource Include="check-one.png" />
+    <Resource Include="pills.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
